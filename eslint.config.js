@@ -2,9 +2,19 @@ import js from "@eslint/js";
 import importPlugin from "eslint-plugin-import";
 import tseslint from "@typescript-eslint/eslint-plugin";
 import tsParser from "@typescript-eslint/parser";
+import prettierPlugin from "eslint-plugin-prettier";
+import prettierConfig from "eslint-config-prettier";
 
 export default [
   js.configs.recommended,
+  {
+    plugins: {
+      prettier: prettierPlugin,
+    },
+    rules: {
+      "prettier/prettier": "error",
+    },
+  },
   {
     files: ["**/*.ts", "**/*.tsx"],
     languageOptions: {
@@ -18,6 +28,7 @@ export default [
     plugins: {
       "@typescript-eslint": tseslint,
       import: importPlugin,
+      prettier: prettierPlugin,
     },
     rules: {
       "@typescript-eslint/no-unused-vars": "warn",
@@ -53,6 +64,10 @@ export default [
           "newlines-between": "always",
         },
       ],
+      "prettier/prettier": "error",
     },
+  },
+  {
+    ...prettierConfig,
   },
 ];

@@ -1,15 +1,21 @@
-import "./global.css"
+import "./global.css";
+import { StatusBar, Text } from "react-native";
 
-import {  Text, View } from 'react-native';
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
-import { StatusBar } from 'expo-status-bar';
+import { Screen } from "@components";
 
 export default function App() {
   return (
-    <View className="flex-1 justify-center items-center">
-      <Text >Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaProvider>
+      <StatusBar
+        backgroundColor="transparent"
+        translucent
+        barStyle="dark-content"
+      />
+      <Screen>
+        <Text>Open up App.tsx to start working on your app!</Text>
+      </Screen>
+    </SafeAreaProvider>
   );
 }
-
