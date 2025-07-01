@@ -20,12 +20,13 @@ export function Screen({ children, scrollable }: ScreenProps) {
 
   return (
     <KeyboardAvoidingView
-      className="flex-1"
+      style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : undefined}
     >
       <Container>
         <View
           style={{
+            flex: 1,
             paddingHorizontal: 20,
             paddingTop: top,
             paddingBottom: bottom,
