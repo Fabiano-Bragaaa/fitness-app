@@ -18,12 +18,12 @@ export function TextInput({
 }: TextInputProps) {
   return (
     <View className="items-center p-4">
-      <View className="flex-row">
+      <View className="flex-row border-b border-b-gray-400">
         <RNTextInput
           autoCapitalize="none"
           placeholderTextColor="#737373"
           {...rnTextInputProps}
-          className="p-0 pb-2 text-black text-lg flex-shrink flex-grow border-b border-b-gray-400"
+          className="p-0 pb-2 text-black text-lg flex-shrink flex-grow "
         />
         {rightComponent && (
           <View className="justify-center ml-4">{rightComponent}</View>
