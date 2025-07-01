@@ -13,11 +13,17 @@ type ButtonProps = TouchableOpacityProps & {
   rightComponent?: ReactNode;
 };
 
-export function Button({ title, loading, disabled }: ButtonProps) {
+export function Button({
+  title,
+  loading,
+  disabled,
+  ...touchableOpacityProps
+}: ButtonProps) {
   return (
     <TouchableOpacity
       disabled={disabled || loading}
       className="bg-black w-full h-12 rounded-md items-center justify-center"
+      {...touchableOpacityProps}
     >
       {loading ? (
         <ActivityIndicator color="#fff" size={16} />

@@ -12,6 +12,9 @@ export function useAuthSignIn() {
   const mutation = useMutation<AuthCredentials, Error, Variables>({
     mutationFn: ({ email, password }) => authService.signIn(email, password),
     retry: false,
+    onSuccess: (authCredentials) => {
+      console.log("dados do usuario logado", authCredentials);
+    },
     onError: (error) => {
       console.log(error.message);
     },

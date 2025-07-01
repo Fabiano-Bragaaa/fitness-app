@@ -1,5 +1,6 @@
 import { Text, View } from "react-native";
 
+import { useAuthSignIn } from "@domain";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -16,6 +17,7 @@ import { AuthScreenPropps } from "@routes";
 import { loginSchema, TypeLoginSchema } from "./LoginSchema";
 
 export function Login({ navigation }: AuthScreenPropps<"login">) {
+  const { isLoading, signIn } = useAuthSignIn();
   const { control, formState, handleSubmit } = useForm<TypeLoginSchema>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -25,8 +27,10 @@ export function Login({ navigation }: AuthScreenPropps<"login">) {
     mode: "onChange",
   });
 
-  function submitForm() {
-    //TODO
+  function submitForm(props: TypeLoginSchema) {
+    console.log("chamei");
+
+    signIn(props);
   }
   return (
     <Screen scrollable>
@@ -40,9 +44,10 @@ export function Login({ navigation }: AuthScreenPropps<"login">) {
           placeholder="Senha"
         />
         <Button
-          title="Criar conta"
+          title="Login"
           disabled={!formState.isValid}
           onPress={handleSubmit(submitForm)}
+          loading={isLoading}
         />
         <View className="self-start mt-3">
           <Link
