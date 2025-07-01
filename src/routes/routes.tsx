@@ -3,6 +3,7 @@ import { ActivityIndicator, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { useAuthCredentials } from "@services";
 
+import { AppStack } from "./AppStack";
 import { AuthStack } from "./AuthStack";
 
 export function Routes() {
@@ -20,7 +21,7 @@ export function Routes() {
 
   return (
     <NavigationContainer>
-      <AuthStack />
+      {userCredentials ? <AppStack /> : <AuthStack />}
     </NavigationContainer>
   );
 }
