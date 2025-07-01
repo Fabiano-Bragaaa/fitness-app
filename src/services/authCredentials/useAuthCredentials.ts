@@ -1,6 +1,8 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
+import { storage } from "../storage/storage";
+
 import { AuthCredentialsType } from "./authCredentialsType";
 
 export function useAuthCredentials(): AuthCredentialsType {
@@ -17,6 +19,10 @@ const useAuthCredentialsZustand = create<AuthCredentialsType>()(
     }),
     {
       name: "@Auth",
+      storage,
+      onRehydrateStorage: () => () => {
+        useAuthCredentialsZustand.setState({ isLoading: false });
+      },
     },
   ),
 );
