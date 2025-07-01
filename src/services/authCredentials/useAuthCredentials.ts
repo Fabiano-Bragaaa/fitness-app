@@ -1,0 +1,22 @@
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+
+import { AuthCredentialsType } from "./authCredentialsType";
+
+export function useAuthCredentials(): AuthCredentialsType {
+  return useAuthCredentialsZustand();
+}
+
+const useAuthCredentialsZustand = create<AuthCredentialsType>()(
+  persist(
+    (set) => ({
+      userCredentials: null,
+      saveCredentials: async (user) => set({ userCredentials: user }),
+      removeCredentials: async () => set({ userCredentials: null }),
+      isLoading: true,
+    }),
+    {
+      name: "@Auth",
+    },
+  ),
+);
