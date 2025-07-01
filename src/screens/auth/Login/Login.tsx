@@ -28,8 +28,6 @@ export function Login({ navigation }: AuthScreenPropps<"login">) {
   });
 
   function submitForm(props: TypeLoginSchema) {
-    console.log("chamei");
-
     signIn(props);
   }
   return (

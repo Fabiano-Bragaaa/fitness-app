@@ -21,7 +21,7 @@ export function useAuthSignUp() {
       saveCredentials(authCredentials);
     },
     onError: (error) => {
-      console.log(error.message);
+      throw new Error(error.message);
     },
   });
 

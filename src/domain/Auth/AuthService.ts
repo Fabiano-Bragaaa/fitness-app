@@ -5,9 +5,13 @@ async function signIn(
   email: string,
   password: string,
 ): Promise<AuthCredentials> {
-  const response = await authApi.signIn(email, password);
+  try {
+    const response = await authApi.signIn(email, password);
 
-  return response;
+    return response;
+  } catch {
+    throw new Error("Erro ao fazer login.");
+  }
 }
 
 async function signUp(
@@ -15,9 +19,13 @@ async function signUp(
   password: string,
   confirm_password: string,
 ): Promise<AuthCredentials> {
-  const response = await authApi.signUp(email, password, confirm_password);
+  try {
+    const response = await authApi.signUp(email, password, confirm_password);
 
-  return response;
+    return response;
+  } catch {
+    throw new Error("Erro ao se cadastrar.");
+  }
 }
 
 export const authService = {
