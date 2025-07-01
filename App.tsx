@@ -3,7 +3,7 @@ import { StatusBar } from "react-native";
 
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
-import { Login } from "@screens";
+import { SignUp } from "@screens";
 
 export default function App() {
   return (
@@ -13,7 +13,7 @@ export default function App() {
         translucent
         barStyle="dark-content"
       />
-      <Login />
+      <SignUp />
     </SafeAreaProvider>
   );
 }
