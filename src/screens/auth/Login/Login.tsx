@@ -3,6 +3,7 @@ import { Text, View } from "react-native";
 import {
   Button,
   ImageLogo,
+  Link,
   PasswordInput,
   Screen,
   TextInput,
@@ -17,6 +18,9 @@ export function Login() {
         <TextInput placeholder="E-mail" errorMessage="erro" />
         <PasswordInput placeholder="Senha" errorMessage="error" />
         <Button title="Criar conta" loading />
+        <View className="self-start mt-3">
+          <Link title="Não possui conta?" linkTitle="Criar conta" />
+        </View>
       </View>
     </Screen>
   );
