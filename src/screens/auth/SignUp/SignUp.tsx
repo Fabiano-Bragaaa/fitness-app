@@ -11,10 +11,11 @@ import {
   Link,
   Screen,
 } from "@components";
+import { AuthScreenPropps } from "@routes";
 
 import { signUpSchema, TypeSignUpSchema } from "./SignUpSchema";
 
-export function SignUp() {
+export function SignUp({ navigation }: AuthScreenPropps<"signUp">) {
   const { control, formState, handleSubmit } = useForm<TypeSignUpSchema>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
@@ -34,12 +35,7 @@ export function SignUp() {
       <View className="flex-1 justify-center items-center">
         <ImageLogo />
         <Text className="text-4xl font-bold">Crie sua conta</Text>
-        <FormTextInput
-          control={control}
-          name="email"
-          placeholder="E-mail"
-          errorMessage="erro"
-        />
+        <FormTextInput control={control} name="email" placeholder="E-mail" />
         <FormPasswordInput
           control={control}
           name="password"
@@ -56,7 +52,11 @@ export function SignUp() {
           onPress={handleSubmit(submitForm)}
         />
         <View className="self-start mt-3">
-          <Link title="Não possui conta?" linkTitle="Criar conta" />
+          <Link
+            title="Já possui conta?"
+            linkTitle="Fazer login"
+            onNavigate={() => navigation.navigate("login")}
+          />
         </View>
       </View>
     </Screen>

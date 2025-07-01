@@ -11,10 +11,11 @@ import {
   Link,
   Screen,
 } from "@components";
+import { AuthScreenPropps } from "@routes";
 
 import { loginSchema, TypeLoginSchema } from "./LoginSchema";
 
-export function Login() {
+export function Login({ navigation }: AuthScreenPropps<"login">) {
   const { control, formState, handleSubmit } = useForm<TypeLoginSchema>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -44,7 +45,11 @@ export function Login() {
           onPress={handleSubmit(submitForm)}
         />
         <View className="self-start mt-3">
-          <Link title="Não possui conta?" linkTitle="Criar conta" />
+          <Link
+            title="Não possui conta?"
+            linkTitle="Criar conta"
+            onNavigate={() => navigation.navigate("signUp")}
+          />
         </View>
       </View>
     </Screen>

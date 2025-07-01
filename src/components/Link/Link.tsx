@@ -6,13 +6,17 @@ import { HugeiconsIcon } from "@hugeicons/react-native";
 type Props = {
   title: string;
   linkTitle: string;
+  onNavigate: () => void;
 };
 
-export function Link({ title, linkTitle }: Props) {
+export function Link({ title, linkTitle, onNavigate }: Props) {
   return (
     <View className="flex-row gap-2">
       <Text className="text-black text-lg font-semibold">{title}</Text>
-      <Pressable className="flex-row gap-1 justify-center items-center">
+      <Pressable
+        className="flex-row gap-1 justify-center items-center"
+        onPress={onNavigate}
+      >
         <Text className="text-blue-500 text-lg font-semibold">{linkTitle}</Text>
         <HugeiconsIcon
           icon={ArrowRight04Icon}
