@@ -1,3 +1,4 @@
+import { useAuthCredentials } from "@services";
 import { useMutation } from "@tanstack/react-query";
 
 import { authService } from "../AuthService";
@@ -9,11 +10,12 @@ interface Variables {
 }
 
 export function useAuthSignIn() {
+  const { saveCredentials } = useAuthCredentials();
   const mutation = useMutation<AuthCredentials, Error, Variables>({
     mutationFn: ({ email, password }) => authService.signIn(email, password),
     retry: false,
     onSuccess: (authCredentials) => {
-      console.log("dados do usuario logado", authCredentials);
+      saveCredentials(authCredentials);
     },
     onError: (error) => {
       console.log(error.message);
