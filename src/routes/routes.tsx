@@ -6,7 +6,7 @@ import { useAuthCredentials } from "@services";
 import { AuthStack } from "./AuthStack";
 
 export function Routes() {
-  const { isLoading } = useAuthCredentials();
+  const { userCredentials, isLoading } = useAuthCredentials();
 
   if (isLoading) {
     return (
@@ -15,6 +15,8 @@ export function Routes() {
       </View>
     );
   }
+
+  console.log("credentials do usuario ==>", userCredentials);
 
   return (
     <NavigationContainer>

@@ -1,5 +1,6 @@
 import { Text, View } from "react-native";
 
+import { useAuthSignUp } from "@domain";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -16,18 +17,19 @@ import { AuthScreenPropps } from "@routes";
 import { signUpSchema, TypeSignUpSchema } from "./SignUpSchema";
 
 export function SignUp({ navigation }: AuthScreenPropps<"signUp">) {
+  const { isLoading, signIn } = useAuthSignUp();
   const { control, formState, handleSubmit } = useForm<TypeSignUpSchema>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
       email: "",
       password: "",
-      passwordConfirm: "",
+      confirm_password: "",
     },
     mode: "onChange",
   });
 
-  function submitForm() {
-    //TODO
+  function submitForm(props: TypeSignUpSchema) {
+    signIn(props);
   }
 
   return (
@@ -43,13 +45,14 @@ export function SignUp({ navigation }: AuthScreenPropps<"signUp">) {
         />
         <FormPasswordInput
           control={control}
-          name="passwordConfirm"
+          name="confirm_password"
           placeholder="Confirmar senha"
         />
         <Button
           title="Criar conta"
           disabled={!formState.isValid}
           onPress={handleSubmit(submitForm)}
+          loading={isLoading}
         />
         <View className="self-start mt-3">
           <Link
