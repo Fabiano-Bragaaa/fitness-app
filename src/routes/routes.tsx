@@ -17,8 +17,6 @@ export function Routes() {
     );
   }
 
-  console.log("credentials do usuario ==>", userCredentials);
-
   return (
     <NavigationContainer>
       {userCredentials ? <AppStack /> : <AuthStack />}
