@@ -1,6 +1,9 @@
 import { api } from "@api";
+import { AxiosRequestConfig } from "axios";
 
 import { AuthCredentials } from "./AuthTypes";
+
+const REFRESH_TOKEN_URL = "refresh";
 
 async function signIn(
   email: string,
@@ -28,7 +31,23 @@ async function signUp(
   return data;
 }
 
+async function refreshToken(token: string) {
+  const { data } = await api.post<AuthCredentials>(REFRESH_TOKEN_URL, {
+    refresh_token: token,
+  });
+
+  return data;
+}
+
+function isRefreshTokenRequest(request: AxiosRequestConfig): boolean {
+  const url = request.url;
+
+  return url === REFRESH_TOKEN_URL;
+}
+
 export const authApi = {
   signIn,
   signUp,
+  isRefreshTokenRequest,
+  refreshToken,
 };

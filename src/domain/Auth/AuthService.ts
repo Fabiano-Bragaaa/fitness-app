@@ -1,3 +1,5 @@
+import { api } from "../../api";
+
 import { authApi } from "./AuthApi";
 import { AuthCredentials } from "./AuthTypes";
 
@@ -28,7 +30,27 @@ async function signUp(
   }
 }
 
+function updateToken(token: string) {
+  api.defaults.headers.common.Authorization = `Bearer ${token}`;
+}
+
+function removeToken() {
+  api.defaults.headers.common.Authorization = null;
+}
+
+async function authenticateByRefreshToken(
+  refreshToken: string,
+): Promise<AuthCredentials> {
+  const acAPI = await authApi.refreshToken(refreshToken);
+
+  return acAPI;
+}
+
 export const authService = {
   signIn,
   signUp,
+  updateToken,
+  removeToken,
+  authenticateByRefreshToken,
+  isRefreshTokenRequest: authApi.isRefreshTokenRequest,
 };
