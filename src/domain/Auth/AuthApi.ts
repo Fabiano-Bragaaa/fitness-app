@@ -14,6 +14,6 @@ async function signIn(
   return data;
 }
 
-export const AuthApi = {
+export const authApi = {
   signIn,
 };
