@@ -3,7 +3,7 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
-      "@dtos": ["./src/dtos"],
+      "@api": ["./src/api"],
       "@assets": ["./src/assets"],
       "@components": ["./src/components"],
       "@screens": ["./src/screens"],
