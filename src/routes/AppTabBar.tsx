@@ -1,5 +1,11 @@
 import React from "react";
-import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
+import {
+  View,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  ViewStyle,
+} from "react-native";
 
 import {
   HomeIcon,
@@ -14,10 +20,21 @@ import {
 import { HugeiconsIcon } from "@hugeicons/react-native";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 
+import { useAppSafeArea } from "@hooks";
+
 import { AppTabBottomParamList } from "./AppTabNavigator";
 
 export function AppTabBar(props: BottomTabBarProps) {
+  const { bottom } = useAppSafeArea();
   const { state, navigation } = props;
+
+  const $container: ViewStyle = {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    paddingTop: 4,
+    paddingBottom: bottom,
+    backgroundColor: "#fff",
+  };
 
   const navItems: Record<
     keyof AppTabBottomParamList,
@@ -45,7 +62,7 @@ export function AppTabBar(props: BottomTabBarProps) {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={$container}>
       {state.routes.map((route, index) => {
         const key = route.name as keyof AppTabBottomParamList;
         const item = navItems[key];
@@ -85,14 +102,9 @@ export function AppTabBar(props: BottomTabBarProps) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    paddingVertical: 8,
-    backgroundColor: "#fff",
-  },
   navItem: {
     alignItems: "center",
+    justifyContent: "center",
   },
   label: {
     marginTop: 4,
