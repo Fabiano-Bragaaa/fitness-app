@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { Text, View } from "react-native";
 
 import { useAuthSignUp } from "@domain";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useAuthCredentials } from "@services";
 import { useForm } from "react-hook-form";
 
 import {
@@ -10,6 +12,7 @@ import {
   FormTextInput,
   ImageLogo,
   Link,
+  Modal,
   Screen,
 } from "@components";
 import { AuthScreenPropps } from "@routes";
@@ -17,7 +20,19 @@ import { AuthScreenPropps } from "@routes";
 import { signUpSchema, TypeSignUpSchema } from "./SignUpSchema";
 
 export function SignUp({ navigation }: AuthScreenPropps<"signUp">) {
-  const { isLoading, signIn } = useAuthSignUp();
+  const { saveCredentials } = useAuthCredentials();
+
+  const [successModalVisible, setSuccessModalVisible] = useState(false);
+
+  const { isLoading, signIn } = useAuthSignUp({
+    onSuccess: (authCredentials) => {
+      setSuccessModalVisible(true);
+      setTimeout(() => {
+        setSuccessModalVisible(false);
+        saveCredentials(authCredentials);
+      }, 2000);
+    },
+  });
   const { control, formState, handleSubmit } = useForm<TypeSignUpSchema>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
@@ -62,6 +77,10 @@ export function SignUp({ navigation }: AuthScreenPropps<"signUp">) {
           />
         </View>
       </View>
+      <Modal
+        visible={successModalVisible}
+        message="Conta registrada com sucesso!"
+      />
     </Screen>
   );
 }
