@@ -1,11 +1,11 @@
 type Reply = {
   id: string;
-  text: string;
-  user: "me" | "other";
+  message: string;
+  from: "me" | "other";
 };
 
 const autoReplies: Reply[] = [
-  { id: "1", text: "Olá! Como posso ajudar?", user: "other" },
+  { id: "1", message: "Olá! Como posso ajudar?", from: "other" },
 ];
 
 export function autoReply(): Promise<Reply> {

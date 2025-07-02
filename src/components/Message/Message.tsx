@@ -1,6 +1,7 @@
 import { Text, View } from "react-native";
 
-type MessageProps = {
+export type MessageProps = {
+  id: string;
   message: string;
   from?: "me" | "other";
 };

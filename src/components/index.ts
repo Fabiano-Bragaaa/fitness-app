@@ -9,3 +9,4 @@ export * from "./Link/Link";
 export * from "./Modal/Modal";
 export * from "./ChatInput/ChatInput";
 export * from "./Message/Message";
+export * from "./LoadingMessage/LoadingMessage";
