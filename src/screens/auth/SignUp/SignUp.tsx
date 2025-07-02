@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Modal, Text, View } from "react-native";
+import { Text, View } from "react-native";
 
 import { useAuthSignUp } from "@domain";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,6 +12,7 @@ import {
   FormTextInput,
   ImageLogo,
   Link,
+  Modal,
   Screen,
 } from "@components";
 import { AuthScreenPropps } from "@routes";
@@ -76,16 +77,10 @@ export function SignUp({ navigation }: AuthScreenPropps<"signUp">) {
           />
         </View>
       </View>
-      <Modal animationType="fade" transparent visible={successModalVisible}>
-        <View className="flex-1 justify-center items-center bg-black/60">
-          <View className="bg-green-50 p-6 rounded-lg items-center mx-6">
-            <Text className="text-5xl">✅</Text>
-            <Text className="mt-2 text-green-800 font-bold">
-              Conta registrada com sucesso!
-            </Text>
-          </View>
-        </View>
-      </Modal>
+      <Modal
+        visible={successModalVisible}
+        message="Conta registrada com sucesso!"
+      />
     </Screen>
   );
 }
