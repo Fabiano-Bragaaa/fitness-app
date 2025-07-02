@@ -10,3 +10,4 @@ export * from "./Modal/Modal";
 export * from "./ChatInput/ChatInput";
 export * from "./Message/Message";
 export * from "./LoadingMessage/LoadingMessage";
+export * from "./ChangeNameChatInput/ChangeNameChatInput";

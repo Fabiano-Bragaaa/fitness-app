@@ -12,11 +12,11 @@ import {
   Link,
   Screen,
 } from "@components";
-import { AuthScreenPropps } from "@routes";
+import { AuthScreenProps } from "@routes";
 
 import { loginSchema, TypeLoginSchema } from "./LoginSchema";
 
-export function Login({ navigation }: AuthScreenPropps<"login">) {
+export function Login({ navigation }: AuthScreenProps<"login">) {
   const { isLoading, signIn } = useAuthSignIn();
   const { control, formState, handleSubmit } = useForm<TypeLoginSchema>({
     resolver: zodResolver(loginSchema),

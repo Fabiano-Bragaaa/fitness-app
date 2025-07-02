@@ -15,11 +15,11 @@ import {
   Modal,
   Screen,
 } from "@components";
-import { AuthScreenPropps } from "@routes";
+import { AuthScreenProps } from "@routes";
 
 import { signUpSchema, TypeSignUpSchema } from "./SignUpSchema";
 
-export function SignUp({ navigation }: AuthScreenPropps<"signUp">) {
+export function SignUp({ navigation }: AuthScreenProps<"signUp">) {
   const { saveCredentials } = useAuthCredentials();
 
   const [successModalVisible, setSuccessModalVisible] = useState(false);

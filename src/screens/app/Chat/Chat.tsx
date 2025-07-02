@@ -3,10 +3,11 @@ import { FlatList } from "react-native";
 import { useChatLogic } from "@domain";
 
 import { ChatInput, LoadingMessage, Message, Screen } from "@components";
+import { AppScreen } from "@routes";
 
 import { ChatHeader } from "./components/ChatHeader";
 
-export function Chat() {
+export function Chat({ navigation }: AppScreen<"chat">) {
   const { displayMessages, input, isLoading, sendMessage, setInput } =
     useChatLogic();
   return (
