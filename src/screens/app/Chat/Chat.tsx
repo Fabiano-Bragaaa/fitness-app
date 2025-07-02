@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { FlatList } from "react-native";
 
-import { autoReply, typeWritterEffect } from "@utils";
+import { useOpenAiChat } from "@domain";
+import { typeWritterEffect } from "@utils";
 
 import {
   ChatInput,
@@ -19,6 +20,26 @@ type Feedback = {
 };
 
 export function Chat() {
+  const { isLoading, chatOpenAi } = useOpenAiChat({
+    onSuccess: (reply) => {
+      typeWritterEffect({
+        text: reply.message,
+        onUpdate: (current) => setFeedback({ type: "typing", text: current }),
+        onDone: () => {
+          setMessages((prev) => [reply, ...prev]);
+          setFeedback(null);
+          setIsMyTurn(true);
+        },
+      });
+    },
+    onError: (errorMsg) => {
+      setFeedback(null);
+      setIsMyTurn(true);
+      // Aqui pode exibir um toast ou alert com o erro, se quiser
+      console.error("Erro no chat OpenAI:", errorMsg);
+    },
+  });
+
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<MessageProps[]>([]);
   // eslint-disable-next-line no-unused-vars
@@ -43,18 +64,7 @@ export function Chat() {
     setIsMyTurn(false);
     setFeedback({ type: "loading", text: "" });
 
-    const reply = await autoReply();
-    setFeedback({ type: "typing", text: "" });
-
-    typeWritterEffect({
-      text: reply.message,
-      onUpdate: (current) => setFeedback({ type: "typing", text: current }),
-      onDone: () => {
-        setMessages((prev) => [reply, ...prev]);
-        setFeedback(null);
-        setIsMyTurn(true);
-      },
-    });
+    chatOpenAi(input);
   }
 
   const displayMessages: MessageProps[] =
@@ -76,9 +86,7 @@ export function Chat() {
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => <Message {...item} />}
         className="flex-1 mb-3"
-        ListHeaderComponent={() =>
-          feedback?.type === "loading" ? <LoadingMessage /> : null
-        }
+        ListHeaderComponent={() => (isLoading ? <LoadingMessage /> : null)}
         inverted
       />
       <ChatInput
