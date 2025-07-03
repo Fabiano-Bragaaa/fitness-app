@@ -1,6 +1,5 @@
 type Props = {
   text: string;
-  // eslint-disable-next-line no-unused-vars
   onUpdate: (current: string) => void;
   onDone: () => void;
 };
