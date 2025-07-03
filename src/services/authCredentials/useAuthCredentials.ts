@@ -9,7 +9,7 @@ export function useAuthCredentials(): AuthCredentialsType {
   return useAuthCredentialsZustand();
 }
 
-const useAuthCredentialsZustand = create<AuthCredentialsType>()(
+export const useAuthCredentialsZustand = create<AuthCredentialsType>()(
   persist(
     (set) => ({
       userCredentials: null,

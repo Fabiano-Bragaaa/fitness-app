@@ -10,6 +10,9 @@ export function useAuthSignOut() {
     mutationFn: ({ userId }) => authService.signOut(userId),
     retry: false,
     onSuccess: removeCredentials,
+    onError: (error) => {
+      console.log(error.message);
+    },
   });
 
   return {

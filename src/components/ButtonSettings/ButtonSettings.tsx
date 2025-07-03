@@ -32,7 +32,7 @@ export function ButtonSettings({
       {...touchableOpacityProps}
     >
       {loading ? (
-        <ActivityIndicator color="#fff" size={16} />
+        <ActivityIndicator color="#080808" size={16} />
       ) : (
         <View className="flex-row items-center">
           {leftComponent && !rightComponent && (
