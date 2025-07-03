@@ -1,9 +1,14 @@
 import { Text, View } from "react-native";
 
 import { useGetExercises } from "@domain";
-import { AnimatedCircularProgress } from "react-native-circular-progress";
 
-import { ActivityIndicator, Graphic, Screen } from "@components";
+import {
+  ActivityIndicator,
+  Button,
+  ExerciseCard,
+  Graphic,
+  Screen,
+} from "@components";
 import { AppScreen } from "@routes";
 
 import { HomeHeader } from "./components/HomeHeader";
@@ -17,10 +22,10 @@ export function Home({ navigation }: AppScreen<"home">) {
 
   const EXERCISES_LENGTH = exercises?.length;
 
-  console.log(exercises);
+  const firstThreeExercises = exercises.slice(0, 3);
 
   return (
-    <Screen>
+    <Screen scrollable>
       {isLoading && <ActivityIndicator />}
       <HomeHeader />
       <Text className="font-semibold text-xl text-primaryBlack my-5">
@@ -29,7 +34,7 @@ export function Home({ navigation }: AppScreen<"home">) {
       <View className="gap-8">
         <View className="items-center justify-center">
           <View className="w-full p-3 rounded-xl shadow items-center bg-white">
-            <Text className="text-xl text-primaryBlack">Atividades</Text>
+            <Text className="text-xl text-primaryBlack mb-4">Atividades</Text>
             <Graphic fillValue={EXERCISES_LENGTH} />
           </View>
         </View>
@@ -39,6 +44,15 @@ export function Home({ navigation }: AppScreen<"home">) {
               Resumo das atividades
             </Text>
             <View className="w-full h-0.5 bg-gray-100 mt-2 rounded-full" />
+
+            {firstThreeExercises.map((exercises) => (
+              <ExerciseCard
+                name={exercises.name}
+                intensity={exercises.intensity}
+                time={Number(exercises.duration)}
+              />
+            ))}
+            <Button title="Nova atividade" style={{ marginTop: 15 }} />
           </View>
         </View>
       </View>

@@ -15,3 +15,4 @@ export * from "./ButtonSettings/ButtonSettings";
 export * from "./OptionsModal/OptionsModal";
 export * from "./ActivityIndicator/ActivityIndicator";
 export * from "./Graphic/Graphic";
+export * from "./ExerciseCard/ExerciseCard";
