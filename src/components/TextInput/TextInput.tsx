@@ -17,7 +17,7 @@ export function TextInput({
   ...rnTextInputProps
 }: TextInputProps) {
   return (
-    <View className="items-center p-4">
+    <View className="items-center">
       <View className="flex-row border-b border-b-gray-400">
         <RNTextInput
           autoCapitalize="none"
