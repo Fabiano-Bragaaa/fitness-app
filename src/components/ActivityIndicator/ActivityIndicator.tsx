@@ -1,9 +1,11 @@
-import { ActivityIndicator as RNActivityIndicator, View } from "react-native";
+import { ActivityIndicator as RNActivityIndicator } from "react-native";
+
+import { Screen } from "../Screen/Screen";
 
 export function ActivityIndicator() {
   return (
-    <View className="flex-1 items-center justify-center">
+    <Screen>
       <RNActivityIndicator color={"#080808"} size={30} />
-    </View>
+    </Screen>
   );
 }

@@ -4,6 +4,7 @@ import { useCreateExercise, useGetExercises } from "@domain";
 
 import {
   ActivityIndicator,
+  BottomModal,
   Button,
   ExerciseCard,
   Graphic,
@@ -66,6 +67,7 @@ export function Home({ navigation }: AppScreen<"home">) {
           </View>
         </View>
       </View>
+      <BottomModal message="ola" visible />
     </Screen>
   );
 }
