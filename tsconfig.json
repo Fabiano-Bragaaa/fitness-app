@@ -8,6 +8,7 @@
       "@components": ["./src/components"],
       "@screens": ["./src/screens"],
       "@storage": ["./src/storage"],
+      "@infra": ["./src/infra"],
       "@utils": ["./src/utils"],
       "@services": ["./src/services"],
       "@hooks": ["./src/hooks"],
