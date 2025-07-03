@@ -31,6 +31,12 @@ async function signUp(
   return data;
 }
 
+async function singOut(userId: string): Promise<{ message: string }> {
+  const { data } = await api.post("/logout", { userId });
+
+  return data;
+}
+
 async function refreshToken(token: string) {
   const { data } = await api.post<AuthCredentials>(REFRESH_TOKEN_URL, {
     refresh_token: token,
@@ -50,4 +56,5 @@ export const authApi = {
   signUp,
   isRefreshTokenRequest,
   refreshToken,
+  singOut,
 };

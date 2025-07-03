@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { AuthCredentials, authService } from "@domain";
 import axios from "axios";
 
@@ -17,7 +16,17 @@ export function registerInterceptor({
   removeCredentials,
   saveCredentials,
 }: InterceptorProps) {
-  const interceptor = api.interceptors.response.use(
+  const requestInterceptor = api.interceptors.request.use(
+    (config) => {
+      if (authCredentials?.access_token) {
+        config.headers.Authorization = `Bearer ${authCredentials.access_token}`;
+      }
+      return config;
+    },
+    (error) => Promise.reject(error),
+  );
+
+  const responseInterceptor = api.interceptors.response.use(
     (response) => response,
     async (responseReject) => {
       const failedRequest = responseReject.config;
@@ -36,7 +45,7 @@ export function registerInterceptor({
         const newAuthCredentials = await authService.authenticateByRefreshToken(
           authCredentials?.refresh_token,
         );
-        saveCredentials(newAuthCredentials);
+        await saveCredentials(newAuthCredentials);
 
         console.log("refresh token success", newAuthCredentials);
 
@@ -49,5 +58,8 @@ export function registerInterceptor({
     },
   );
 
-  return () => api.interceptors.request.eject(interceptor);
+  return () => {
+    api.interceptors.request.eject(requestInterceptor);
+    api.interceptors.response.eject(responseInterceptor);
+  };
 }
