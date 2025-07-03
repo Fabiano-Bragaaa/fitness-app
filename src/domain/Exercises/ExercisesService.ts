@@ -1,5 +1,5 @@
 import { exercisesApi } from "./ExercisesApi";
-import { Exercises } from "./ExercisesTypes";
+import { Exercise, Exercises } from "./ExercisesTypes";
 
 async function getExercises(): Promise<Exercises> {
   const response = await exercisesApi.getExercises();
@@ -15,7 +15,28 @@ async function createExercise(
   await exercisesApi.createExercises(name, duration, intensity);
 }
 
+async function getExercise(id: string): Promise<Exercise> {
+  const response = await exercisesApi.getExercise(id);
+
+  return response;
+}
+
+async function deleteExercise(id: string): Promise<void> {
+  await exercisesApi.deleteExercise(id);
+}
+
+async function updateExercise(
+  name?: string,
+  duration?: string,
+  intensity?: string,
+): Promise<void> {
+  await exercisesApi.updateExercise(name, duration, intensity);
+}
+
 export const exercisesService = {
   getExercises,
   createExercise,
+  deleteExercise,
+  updateExercise,
+  getExercise,
 };
