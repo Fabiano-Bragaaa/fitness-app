@@ -13,3 +13,5 @@ export * from "./LoadingMessage/LoadingMessage";
 export * from "./ChangeNameChatInput/ChangeNameChatInput";
 export * from "./ButtonSettings/ButtonSettings";
 export * from "./OptionsModal/OptionsModal";
+export * from "./ActivityIndicator/ActivityIndicator";
+export * from "./Graphic/Graphic";
