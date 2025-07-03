@@ -1,6 +1,6 @@
 import { Text, View } from "react-native";
 
-import { useGetExercises } from "@domain";
+import { useCreateExercise, useGetExercises } from "@domain";
 
 import {
   ActivityIndicator,
@@ -14,7 +14,12 @@ import { AppScreen } from "@routes";
 import { HomeHeader } from "./components/HomeHeader";
 
 export function Home({ navigation }: AppScreen<"home">) {
+  const { createExercise, isloading } = useCreateExercise();
   const { exercises, isLoading } = useGetExercises();
+
+  function create() {
+    createExercise({ name: "novo nome", duration: "30", intensity: "alta" });
+  }
 
   if (!exercises) {
     return null;
@@ -47,12 +52,17 @@ export function Home({ navigation }: AppScreen<"home">) {
 
             {firstThreeExercises.map((exercises) => (
               <ExerciseCard
+                key={exercises.id}
                 name={exercises.name}
                 intensity={exercises.intensity}
                 time={Number(exercises.duration)}
               />
             ))}
-            <Button title="Nova atividade" style={{ marginTop: 15 }} />
+            <Button
+              title="Nova atividade"
+              style={{ marginTop: 15 }}
+              onPress={create}
+            />
           </View>
         </View>
       </View>

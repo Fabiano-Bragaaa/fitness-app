@@ -20,7 +20,7 @@ export function ExerciseCard({ intensity, name, time }: Props) {
       </View>
       <View className="flex-row mb-4">
         <Text className="text-primaryBlack font-semibold flex-1">
-          Tempo: {time}
+          Tempo: {time}Min
         </Text>
         <Text className="text-primaryBlack font-semibold">
           Intensidade: {intensity}

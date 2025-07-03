@@ -8,6 +8,19 @@ async function getExercises(): Promise<Exercises> {
   return data;
 }
 
+async function createExercises(
+  name: string,
+  duration: string,
+  intensity: string,
+): Promise<void> {
+  await api.post("/exercises", {
+    name,
+    duration,
+    intensity,
+  });
+}
+
 export const exercisesApi = {
   getExercises,
+  createExercises,
 };
