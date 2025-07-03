@@ -5,6 +5,7 @@ export * from "./PasswordInput/PasswordInput";
 export * from "./Button/Button";
 export * from "./Form/FomPasswordInput";
 export * from "./Form/FormTextInput";
+export * from "./Form/GSInput";
 export * from "./Link/Link";
 export * from "./Modal/Modal";
 export * from "./ChatInput/ChatInput";

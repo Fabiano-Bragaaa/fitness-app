@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Text, View } from "react-native";
 
 import { useCreateExercise, useGetExercises } from "@domain";
@@ -15,12 +16,8 @@ import { AppScreen } from "@routes";
 import { HomeHeader } from "./components/HomeHeader";
 
 export function Home({ navigation }: AppScreen<"home">) {
-  const { createExercise, isloading } = useCreateExercise();
+  const [visible, setVisible] = useState(false);
   const { exercises, isLoading } = useGetExercises();
-
-  function create() {
-    createExercise({ name: "novo nome", duration: "30", intensity: "alta" });
-  }
 
   if (!exercises) {
     return null;
@@ -62,12 +59,12 @@ export function Home({ navigation }: AppScreen<"home">) {
             <Button
               title="Nova atividade"
               style={{ marginTop: 15 }}
-              onPress={create}
+              onPress={() => setVisible(true)}
             />
           </View>
         </View>
       </View>
-      <BottomModal message="ola" visible />
+      <BottomModal visible={visible} closeModal={() => setVisible(false)} />
     </Screen>
   );
 }

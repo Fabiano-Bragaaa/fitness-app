@@ -17,12 +17,12 @@ export function useCreateExercise(options?: MutationOptions<void>) {
       exercisesService.createExercise(name, duration, intensity),
     retry: false,
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: [QueryKeys.getExercises],
-      });
       if (options?.onSuccess) {
         options.onSuccess();
       }
+      queryClient.invalidateQueries({
+        queryKey: [QueryKeys.getExercises],
+      });
     },
     onError: (error) => {
       if (options?.onError) {
