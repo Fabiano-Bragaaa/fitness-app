@@ -20,12 +20,21 @@ type Props = {
 
 export function BottomModal({ closeModal, visible }: Props) {
   const [successModal, setSuccessModal] = useState(false);
+  const [errorModal, setErrorModal] = useState(false);
   const { createExercise, isloading } = useCreateExercise({
     onSuccess: () => {
       reset();
       setSuccessModal(true);
       setTimeout(() => {
         setSuccessModal(false);
+        closeModal();
+      }, 2000);
+    },
+    onError: () => {
+      reset();
+      setErrorModal(true);
+      setTimeout(() => {
+        setErrorModal(false);
         closeModal();
       }, 2000);
     },
@@ -105,6 +114,11 @@ export function BottomModal({ closeModal, visible }: Props) {
       <CModal
         visible={successModal}
         message="Atividade registrada com sucesso!"
+      />
+      <CModal
+        visible={errorModal}
+        isError
+        message="Ouve um erro ao registrar sua atividade, tente novamente em alguns instantes"
       />
     </Modal>
   );
