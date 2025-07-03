@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { AuthCredentials } from "@domain";
 
 export type AuthCredentialsType = {

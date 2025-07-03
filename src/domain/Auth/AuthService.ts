@@ -30,6 +30,12 @@ async function signUp(
   }
 }
 
+async function signOut(userId: string): Promise<{ message: string }> {
+  const response = await authApi.singOut(userId);
+
+  return response;
+}
+
 function updateToken(token: string) {
   api.defaults.headers.common.Authorization = `Bearer ${token}`;
 }
@@ -49,6 +55,7 @@ async function authenticateByRefreshToken(
 export const authService = {
   signIn,
   signUp,
+  signOut,
   updateToken,
   removeToken,
   authenticateByRefreshToken,

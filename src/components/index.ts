@@ -11,3 +11,5 @@ export * from "./ChatInput/ChatInput";
 export * from "./Message/Message";
 export * from "./LoadingMessage/LoadingMessage";
 export * from "./ChangeNameChatInput/ChangeNameChatInput";
+export * from "./ButtonSettings/ButtonSettings";
+export * from "./OptionsModal/OptionsModal";

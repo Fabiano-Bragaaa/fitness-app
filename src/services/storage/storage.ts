@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { asyncStorage } from "./asyncStorage";
 
 export interface Storage {
