@@ -3,7 +3,7 @@ import { useAuthCredentialsZustand } from "@services"; // ajuste o path
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: "http://192.168.86.4:3333/",
+  baseURL: "http://192.168.86.6:3333/",
 });
 
 function getAuthCredentials() {
