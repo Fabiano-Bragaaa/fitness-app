@@ -31,13 +31,19 @@ export function Modal({ message, visible, isError = false }: Props) {
           backgroundColor="rgba(0,0,0,0.6)"
           translucent
         />
-        <View className="bg-green-50 p-6 rounded-lg items-center mx-6 mx-h-10">
+        <View
+          className={` ${isError ? "bg-red-100" : " bg-green-50"} p-6 rounded-lg items-center mx-6 mx-h-10`}
+        >
           <HugeiconsIcon
             icon={isError ? CancelSquareIcon : CheckmarkSquare03Icon}
-            color="#348352"
+            color={isError ? "#dc2626" : "#348352"}
             size={40}
           />
-          <Text className="mt-2 text-success font-bold">{message}</Text>
+          <Text
+            className={`mt-2 ${isError ? "text-red-600" : " text-success"} font-bold text-center`}
+          >
+            {message}
+          </Text>
         </View>
       </View>
     </RNModal>
