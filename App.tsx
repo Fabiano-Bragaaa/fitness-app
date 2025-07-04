@@ -13,17 +13,6 @@ import { Routes } from "@routes";
 const queryClient = new QueryClient();
 
 export default function App() {
-  useEffect(() => {
-    const { saveCredentials, removeCredentials } =
-      useAuthCredentialsZustand.getState();
-
-    const interceptor = registerInterceptor({
-      saveCredentials,
-      removeCredentials,
-    });
-
-    return interceptor;
-  }, []);
   return (
     <QueryClientProvider client={queryClient}>
       <GluestackUIProvider>

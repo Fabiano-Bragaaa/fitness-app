@@ -3,15 +3,16 @@ import { useQuery } from "@tanstack/react-query";
 
 import { exercisesService } from "../ExercisesService";
 
-export function useGetExerciseById(id: string) {
+export function useGetExerciseById(id?: string) {
   const { data, isPending } = useQuery({
     queryKey: [QueryKeys.getExercisesById, id],
-    queryFn: () => exercisesService.getExercise(id),
+    queryFn: () => exercisesService.getExercise(id!),
+    enabled: !!id,
     staleTime: 1000 * 30,
   });
 
   return {
-    user: data,
+    exercise: data,
     isLoading: isPending,
   };
 }

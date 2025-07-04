@@ -26,11 +26,12 @@ async function deleteExercise(id: string): Promise<void> {
 }
 
 async function updateExercise(
+  id: string,
   name?: string,
   duration?: string,
   intensity?: string,
 ): Promise<void> {
-  await exercisesApi.updateExercise(name, duration, intensity);
+  await exercisesApi.updateExercise(id, name, duration, intensity);
 }
 
 export const exercisesService = {

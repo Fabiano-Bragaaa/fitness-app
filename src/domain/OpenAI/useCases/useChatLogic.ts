@@ -33,7 +33,7 @@ export function useChatLogic() {
 
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<MessageProps[]>([]);
-  // eslint-disable-next-line no-unused-vars
+
   const [isMyTurn, setIsMyTurn] = useState(true);
   const [feedback, setFeedback] = useState<null | Feedback>(null);
 

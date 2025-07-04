@@ -5,6 +5,7 @@ import { MutationOptions } from "@types";
 import { exercisesService } from "../ExercisesService";
 
 interface Variables {
+  id: string;
   name?: string;
   duration?: string;
   intensity?: string;
@@ -13,8 +14,8 @@ interface Variables {
 export function useUpdateExercise(options?: MutationOptions<void>) {
   const queryClient = useQueryClient();
   const mutation = useMutation<void, Error, Variables>({
-    mutationFn: ({ name, duration, intensity }) =>
-      exercisesService.updateExercise(name, duration, intensity),
+    mutationFn: ({ name, duration, intensity, id }) =>
+      exercisesService.updateExercise(id, name, duration, intensity),
     onSuccess: (id) => {
       queryClient.invalidateQueries({
         queryKey: [QueryKeys.getExercises],

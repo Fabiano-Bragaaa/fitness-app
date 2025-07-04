@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { Text, View } from "react-native";
 
-import { useCreateExercise, useGetExercises } from "@domain";
+import {
+  useDeleteExercise,
+  useGetExerciseById,
+  useGetExercises,
+  useUpdateExercise,
+} from "@domain";
 
 import {
   ActivityIndicator,
@@ -9,6 +14,8 @@ import {
   Button,
   ExerciseCard,
   Graphic,
+  Modal,
+  OptionsModal,
   Screen,
 } from "@components";
 import { AppScreen } from "@routes";
@@ -17,10 +24,68 @@ import { HomeHeader } from "./components/HomeHeader";
 
 export function Home({ navigation }: AppScreen<"home">) {
   const [visible, setVisible] = useState(false);
-  const { exercises, isLoading } = useGetExercises();
+  const [visibleEditModal, setVisibleEditModal] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
+  const [confirmDeleteModalVisible, setConfirmDeleteModalVisible] =
+    useState(false);
+  const [successModal, setSuccessModal] = useState(false);
+  const [errorModal, setErrorModal] = useState(false);
+  const [id, setId] = useState<string>();
 
-  if (!exercises) {
-    return null;
+  const { exercises, isLoading } = useGetExercises();
+  const { exercise: data } = useGetExerciseById(id);
+  const { delete: removeExercise } = useDeleteExercise();
+  const { update } = useUpdateExercise({
+    onSuccess: () => {
+      setSuccessModal(true);
+      setTimeout(() => {
+        setSuccessModal(false);
+        setIsEdit(false);
+      }, 2000);
+    },
+    onError: () => {
+      setErrorModal(true);
+      setTimeout(() => {
+        setErrorModal(false);
+        setIsEdit(false);
+      }, 2000);
+    },
+  });
+
+  if (isLoading || !exercises) {
+    return <ActivityIndicator />;
+  }
+
+  function getExerciseById(id: string) {
+    console.log("id recebido  ====>", id);
+
+    setId(id);
+    setIsEdit(true);
+    setVisibleEditModal(true);
+  }
+
+  function handleDeletePress() {
+    setConfirmDeleteModalVisible(true);
+  }
+
+  function deleteExercise() {
+    if (id) {
+      removeExercise(id);
+      setVisibleEditModal(false);
+      setConfirmDeleteModalVisible(false);
+    }
+  }
+
+  function handleUpdate(data: {
+    id: string;
+    name: string;
+    duration: string;
+    intensity: string;
+  }) {
+    if (id && data) {
+      update(data);
+      setVisibleEditModal(false);
+    }
   }
 
   const EXERCISES_LENGTH = exercises?.length;
@@ -50,6 +115,7 @@ export function Home({ navigation }: AppScreen<"home">) {
 
             {firstThreeExercises.map((exercises) => (
               <ExerciseCard
+                handleExerciseById={() => getExerciseById(exercises.id)}
                 key={exercises.id}
                 name={exercises.name}
                 intensity={exercises.intensity}
@@ -65,6 +131,30 @@ export function Home({ navigation }: AppScreen<"home">) {
         </View>
       </View>
       <BottomModal visible={visible} closeModal={() => setVisible(false)} />
+      <BottomModal
+        visible={visibleEditModal}
+        closeModal={() => setVisibleEditModal(false)}
+        isEdit={isEdit}
+        duration={data?.duration}
+        intensity={data?.intensity}
+        name={data?.name}
+        id={id}
+        onUpdate={handleUpdate}
+        onDeletePress={handleDeletePress}
+      />
+      <OptionsModal
+        message={`Deseja apagar a ${data?.name}? Confirme no botão abaixo para concluir a exclusão da atividade!`}
+        visible={confirmDeleteModalVisible}
+        closeModal={() => setConfirmDeleteModalVisible(false)}
+        handleDelete={deleteExercise}
+        isEdit
+      />
+      <Modal visible={successModal} message="Edição salva com sucesso!!" />
+      <Modal
+        visible={errorModal}
+        isError
+        message="Ouve um erro ao editar sua atividade, tente novamente em alguns instantes"
+      />
     </Screen>
   );
 }

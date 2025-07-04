@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Modal, Pressable, StatusBar, Text, View } from "react-native";
 
 import { useCreateExercise } from "@domain";
@@ -8,6 +8,7 @@ import { HugeiconsIcon } from "@hugeicons/react-native";
 import { useForm } from "react-hook-form";
 
 import { Button } from "../Button/Button";
+import { ButtonDelete } from "../ButtonDelete/ButtonDelete";
 import { FormGSTextInput } from "../Form/GSInput";
 import { Modal as CModal } from "../Modal/Modal";
 
@@ -16,9 +17,31 @@ import { bottomModalSchema, TypeBottomModalSchema } from "./modalSchema";
 type Props = {
   visible: boolean;
   closeModal: () => void;
+  name?: string;
+  duration?: string;
+  intensity?: string;
+  isEdit?: boolean;
+  id?: string;
+  onDeletePress?: () => void;
+  onUpdate?: (data: {
+    id: string;
+    name: string;
+    duration: string;
+    intensity: string;
+  }) => void;
 };
 
-export function BottomModal({ closeModal, visible }: Props) {
+export function BottomModal({
+  closeModal,
+  visible,
+  name,
+  duration,
+  intensity,
+  isEdit,
+  onDeletePress,
+  id,
+  onUpdate,
+}: Props) {
   const [successModal, setSuccessModal] = useState(false);
   const [errorModal, setErrorModal] = useState(false);
   const { createExercise, isloading } = useCreateExercise({
@@ -39,19 +62,40 @@ export function BottomModal({ closeModal, visible }: Props) {
       }, 2000);
     },
   });
+
   const { control, formState, handleSubmit, reset } =
     useForm<TypeBottomModalSchema>({
       resolver: zodResolver(bottomModalSchema),
       defaultValues: {
-        duration: "",
-        intensity: "",
-        name: "",
+        duration: duration || "",
+        intensity: intensity || "",
+        name: name || "",
       },
     });
 
   function registetr(props: TypeBottomModalSchema) {
-    createExercise(props);
+    if (isEdit && id && onUpdate) {
+      onUpdate({ id, ...props });
+    } else {
+      createExercise(props);
+    }
   }
+
+  useEffect(() => {
+    if (isEdit) {
+      reset({
+        name: name || "",
+        duration: duration || "",
+        intensity: intensity || "",
+      });
+    } else {
+      reset({
+        name: "",
+        duration: "",
+        intensity: "",
+      });
+    }
+  }, [isEdit, name, duration, intensity, reset]);
 
   return (
     <Modal
@@ -74,7 +118,7 @@ export function BottomModal({ closeModal, visible }: Props) {
         <View className="bg-primaryWhite p-6 rounded-t-2xl w-full">
           <View className="flex-row items-center">
             <Text className="mt-2 text-primaryBlack text-2xl font-bold flex-1">
-              Registre sua atividade
+              {isEdit ? "Edite sua atividade" : "Registre sua atividade"}
             </Text>
             <Pressable onPress={closeModal}>
               <HugeiconsIcon
@@ -102,8 +146,15 @@ export function BottomModal({ closeModal, visible }: Props) {
             label="Duração"
             placeholder="Qual foi a duração?"
           />
+
+          <View
+            style={{ width: "50%", alignSelf: "flex-start", marginTop: 20 }}
+          >
+            <ButtonDelete title="Excluir atividade" onPress={onDeletePress} />
+          </View>
+
           <Button
-            title="Registar atividade"
+            title={isEdit ? "Editar atividade" : "Registar atividade"}
             style={{ marginTop: 25 }}
             disabled={!formState.isValid}
             onPress={handleSubmit(registetr)}

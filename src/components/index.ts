@@ -19,3 +19,4 @@ export * from "./Graphic/Graphic";
 export * from "./ExerciseCard/ExerciseCard";
 export * from "./BottomModal/BottomModal";
 export * from "./GSInput/GSInput";
+export * from "./ButtonDelete/ButtonDelete";

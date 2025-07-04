@@ -4,7 +4,7 @@ import { Screen } from "../Screen/Screen";
 
 export function ActivityIndicator() {
   return (
-    <Screen>
+    <Screen style={{ justifyContent: "center", alignItems: "center" }}>
       <RNActivityIndicator color={"#080808"} size={30} />
     </Screen>
   );

@@ -21,21 +21,22 @@ async function createExercises(
 }
 
 async function getExercise(id: string): Promise<Exercise> {
-  const { data } = await api.get<Exercise>(`/exercises/${id}`);
+  const { data } = await api.get<{ exercise: Exercise }>(`/exercises/${id}`);
 
-  return data;
+  return data.exercise;
 }
 
 async function deleteExercise(id: string): Promise<void> {
-  await api.delete<Exercise>(`/exercises/${id}`);
+  await api.delete(`/exercises/${id}`);
 }
 
 async function updateExercise(
+  id: string,
   name?: string,
   duration?: string,
   intensity?: string,
 ): Promise<void> {
-  await api.patch("/exercises", { name, duration, intensity });
+  await api.patch(`/exercises/${id}`, { name, duration, intensity });
 }
 
 export const exercisesApi = {

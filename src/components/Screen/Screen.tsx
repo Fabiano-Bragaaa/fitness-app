@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { KeyboardAvoidingView, Platform, View } from "react-native";
+import { ViewProps } from "react-native";
 
 import { useAppSafeArea } from "@hooks";
 
@@ -8,12 +9,12 @@ import {
   ViewContainer,
 } from "./components/ScreenContainer";
 
-type ScreenProps = {
+type ScreenProps = ViewProps & {
   children: ReactNode;
   scrollable?: boolean;
 };
 
-export function Screen({ children, scrollable }: ScreenProps) {
+export function Screen({ children, scrollable, style }: ScreenProps) {
   const { bottom, top } = useAppSafeArea();
 
   const Container = scrollable ? ScrollViewContainer : ViewContainer;
@@ -25,12 +26,15 @@ export function Screen({ children, scrollable }: ScreenProps) {
     >
       <Container>
         <View
-          style={{
-            flex: 1,
-            paddingHorizontal: 20,
-            paddingTop: top,
-            paddingBottom: bottom,
-          }}
+          style={[
+            {
+              flex: 1,
+              paddingHorizontal: 20,
+              paddingTop: top,
+              paddingBottom: bottom,
+            },
+            style,
+          ]}
         >
           {children}
         </View>

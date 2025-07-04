@@ -58,6 +58,7 @@ export function Settings({ navigation }: AppScreen<"settings">) {
         />
       </View>
       <OptionsModal
+        handleDelete={() => {}}
         message="Para confirmar a exclusão da sua conta, confirme sua senha no campo abaixo "
         visible={successModalVisible}
         closeModal={closeModal}
