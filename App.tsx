@@ -4,7 +4,6 @@ import { StatusBar } from "react-native";
 
 import { registerInterceptor } from "@api";
 import { GluestackUIProvider } from "@gluestack-ui/themed";
-import { useAuthCredentialsZustand } from "@services";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
@@ -13,6 +12,14 @@ import { Routes } from "@routes";
 const queryClient = new QueryClient();
 
 export default function App() {
+  useEffect(() => {
+    const unregisterInterceptors = registerInterceptor();
+
+    return () => {
+      unregisterInterceptors();
+    };
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <GluestackUIProvider>
