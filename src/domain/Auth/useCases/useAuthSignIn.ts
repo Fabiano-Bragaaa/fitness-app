@@ -16,11 +16,8 @@ export function useAuthSignIn() {
     retry: false,
     onSuccess: (authCredentials) => {
       saveCredentials(authCredentials);
-      console.log("credentiais salvas", authCredentials);
     },
     onError: (error) => {
-      console.log("erro ao logar", error.message);
-
       throw new Error(error.message);
     },
   });

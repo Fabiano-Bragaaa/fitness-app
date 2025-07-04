@@ -57,8 +57,6 @@ export function Home({ navigation }: AppScreen<"home">) {
   }
 
   function getExerciseById(id: string) {
-    console.log("id recebido  ====>", id);
-
     setId(id);
     setIsEdit(true);
     setVisibleEditModal(true);
