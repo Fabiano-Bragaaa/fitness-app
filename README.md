@@ -34,9 +34,6 @@ Este projeto foi desenvolvido com foco em **organização**, **manutenibilidade*
 - exerciseService.ts
 - exerciseTypes.ts
 
-/presentation/screens/
-/presentation/components/
-
 
 - **Hooks customizados por domínio**:  
 Toda lógica de estado e side-effects fica encapsulada em hooks no domínio, como `useExerciseById`, `useCreateExercise`, etc.
