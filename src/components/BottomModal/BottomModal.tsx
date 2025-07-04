@@ -147,11 +147,13 @@ export function BottomModal({
             placeholder="Qual foi a duração?"
           />
 
-          <View
-            style={{ width: "50%", alignSelf: "flex-start", marginTop: 20 }}
-          >
-            <ButtonDelete title="Excluir atividade" onPress={onDeletePress} />
-          </View>
+          {isEdit && (
+            <View
+              style={{ width: "50%", alignSelf: "flex-start", marginTop: 20 }}
+            >
+              <ButtonDelete title="Excluir atividade" onPress={onDeletePress} />
+            </View>
+          )}
 
           <Button
             title={isEdit ? "Editar atividade" : "Registar atividade"}

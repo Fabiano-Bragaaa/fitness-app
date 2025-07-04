@@ -10,7 +10,7 @@ type Props = TouchableOpacityProps & {
 export function ButtonDelete({ title, ...touchableOpacityProps }: Props) {
   return (
     <TouchableOpacity
-      className="bg-red-900 p-3 gap-2 w-[40%] rounded-lg flex-row items-center"
+      className="bg-red-900 p-3 gap-2 w-full rounded-lg flex-row items-center"
       {...touchableOpacityProps}
     >
       <Text className="text-primaryWhite ml-2">{title}</Text>
